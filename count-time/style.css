@@ -1,0 +1,20 @@
+.container {
+  height: calc(100vh - 60px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.time {
+  font-size: calc(5rem + 1.5vw) !important;
+}
+
+.action {
+  display: flex;
+  gap: 15px;
+}
+
+.action button {
+  width: 100px;
+}
