@@ -1,3 +1,22 @@
+.white-theme {
+  background-color: azure;
+  color: black;
+}
+
+.black-theme {
+  background-color: black;
+  color: white;
+}
+
+.black-theme .bg-light {
+  background-color: black !important;
+}
+
+.black-theme .nav-link,
+.black-theme .navbar-light .navbar-brand {
+  color: white !important;
+}
+
 .container {
   height: calc(100vh - 60px);
   display: flex;
