@@ -1,3 +1,12 @@
+const CURRENT_THEME = 'currentTheme';
+const BLACK_THEME = 'blackTheme';
+const WHITE_THEME = 'whiteTheme';
+const themeClasses = {
+  [BLACK_THEME]: 'black-theme',
+  [WHITE_THEME]: 'white-theme',
+}
+let countTime;
+
 function init() {
   let idTime = $('#time p');
   let btnReset = $('#btnReset');
@@ -8,6 +17,8 @@ function init() {
   if (getTime > 0) {
     btnReset.removeClass('d-none');
   }
+
+  initTheme();
 }
 
 function handleClick(type) {
@@ -48,8 +59,6 @@ function handleClick(type) {
   }
 }
 
-let countTime;
-
 function startTime() {
   let idTime = $('#time p');
   let getTime = +localStorage.getItem('countTime') || 0;
@@ -76,6 +85,47 @@ function formatTime(a) {
   let m = parseInt(a % 3600 / 60);
   let s = (a % 3600 % 60);
   return ((h < 10 ? `0${h}` : h) + ':' + (m < 10 ? `0${m}` : m) + ':' + (s < 10 ? `0${s}` : s));
+}
+
+const initTheme = () => {
+  const getCurTheme = localStorage.getItem(CURRENT_THEME);
+
+  if (!getCurTheme?.length) {
+    removeTheme();
+    applyTheme(themeClasses[BLACK_THEME]);
+    storeTheme(BLACK_THEME);
+  } else {
+    removeTheme();
+    applyTheme(themeClasses[getCurTheme]);
+    storeTheme(getCurTheme === BLACK_THEME ? BLACK_THEME : WHITE_THEME);
+  }
+}
+
+const changeTheme = () => {
+  const getCurTheme = localStorage.getItem(CURRENT_THEME);
+
+  if (!getCurTheme?.length) {
+    removeTheme();
+    applyTheme(themeClasses[BLACK_THEME]);
+    storeTheme(BLACK_THEME);
+  } else {
+    removeTheme();
+    let setTheme = getCurTheme === BLACK_THEME ? WHITE_THEME : BLACK_THEME;
+    applyTheme(themeClasses[setTheme]);
+    storeTheme(setTheme);
+  }
+}
+
+const storeTheme = (theme) => {
+  localStorage.setItem(CURRENT_THEME, theme);
+}
+
+const applyTheme = (theme) => {
+  $('body').addClass(theme);
+}
+
+const removeTheme = (theme) => {
+  $('body').removeClass('black-theme white-theme');
 }
 
 init();
